@@ -21,6 +21,7 @@ class PromptBase(BaseModel):
     content: str = Field(..., min_length=1)
     description: Optional[str] = Field(None, max_length=500)
     collection_id: Optional[str] = None
+    tags: List[str] = Field(default_factory=list)
 
 
 class PromptCreate(PromptBase):
@@ -32,6 +33,7 @@ class PromptUpdate(BaseModel):
     content: Optional[str] = None
     description: Optional[str] = None
     collection_id: Optional[str] = None
+    tags: Optional[List[str]] = None
 
 
 class Prompt(PromptBase):
@@ -70,6 +72,14 @@ class PromptList(BaseModel):
 class CollectionList(BaseModel):
     collections: List[Collection]
     total: int
+
+
+class TagList(BaseModel):
+    tags: List[str]
+
+
+class TagAdd(BaseModel):
+    tag: str = Field(..., min_length=1, max_length=50)
 
 
 class HealthResponse(BaseModel):
